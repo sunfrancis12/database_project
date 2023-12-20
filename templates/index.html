@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <title>CodePen - Flexbox Responsive Form</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
+  <link rel="stylesheet" href="{{url_for('static',filename='index/style.css')}}">
+
+
+</head>
+<body>
+<!-- partial:index.partial.html -->
+
+<input type="food" id="food_input" placeholder="請搜尋您想要的美食">
+<input type="submit" value="搜尋" onclick="search()">
+
+<!-- partial -->
+
+<script>
+  
+  var food_array //儲存結果的array
+  var text_json = '{"名稱": "揭家牛肉麵", "網址": "https:0", "電話": "(03)5364668", "行政區": "北區", "Areacode": "10018020", "地址": "東大路三段373號", "介紹": "推薦菜色：牛肉麵"}';
+  let test = JSON.parse(text_json); 
+
+  console.log(test.名稱)
+
+  function search(){
+    var text = document.getElementById('data');
+
+    
+
+    food = document.getElementById('food_input').value;
+    console.log(food)
+    
+      fetch(`/search?food=${food}`, {
+        method: 'GET',
+        headers: {}
+      }).then((res) => {
+        return res.text();   
+      }).then(result => {
+        //text.innerHTML = result;
+        food_array = JSON.parse(result);
+        console.log(result);
+      })
+
+      console.log(food_array.shop_1.名稱)
+     
+      
+  //var count = 1
+  for(i in food_array){
+    console.log("hihihi")
+    console.log(i)
+
+    var precent_div = "shop_" + count;
+
+        //建立div元素，class = food_class 內容為元素的編號
+        food_number = document.createElement("div");
+        food_number.setAttribute("class", "food_class") //給元素class
+        food_number.setAttribute("id", "food_" + count) //給元素id
+        document.getElementById("food").appendChild(food_number); //添加至id=food的div元素裡面
+
+        // ===========   商店名稱   ============= //
+        create_element = document.createElement("h3");
+        create_element.setAttribute("id", "shop_title") //給元素id
+        create_element.innerHTML = "name";
+        document.getElementById(precent_div).appendChild(create_element); //添加至shop_的div元素裡面
+
+        //建立p元素，內容為商店名稱
+        create_element = document.createElement("p");
+        create_element.setAttribute("id", "name_" + count) //給元素id
+        create_element.innerText = food_array[i].名稱;
+        document.getElementById(precent_div).appendChild(create_element);
+
+        // ===========   商店網址   ============= //
+        create_element = document.createElement("h3");
+        create_element.setAttribute("id", "shop_link") //給元素id
+        create_element.innerHTML = "shop_link";
+        document.getElementById(precent_div).appendChild(create_element); //添加至shop_的div元素裡面
+
+        //建立p元素，內容為商店網址
+        create_element = document.createElement("p");
+        create_element.setAttribute("id", "link_" + count) //給元素id
+        create_element.innerText = food_array[i].網址;
+        document.getElementById(precent_div).appendChild(create_element);
+
+        // ===========   商店電話   ============= //
+        create_element = document.createElement("h3");
+        create_element.setAttribute("id", "shop_tel") //給元素id
+        create_element.innerHTML = "電話";
+        document.getElementById(precent_div).appendChild(create_element); //添加至shop_的div元素裡面
+
+        //建立p元素，內容為商店電話
+        create_element = document.createElement("p");
+        create_element.setAttribute("id", "tel_" + count) //給元素id
+        create_element.innerText = food_array[i].電話;
+        document.getElementById(precent_div).appendChild(create_element);
+
+        // ===========   商店行政區   ============= //
+        create_element = document.createElement("h3");
+        create_element.setAttribute("id", "shop_area") //給元素id
+        create_element.innerHTML = "商店行政區";
+        document.getElementById(precent_div).appendChild(create_element); //添加至shop_的div元素裡面
+
+        //建立p元素，內容為商店行政區
+        create_element = document.createElement("p");
+        create_element.setAttribute("id", "area_" + count) //給元素id
+        create_element.innerText = food_array[i].行政區;
+        document.getElementById(precent_div).appendChild(create_element);
+
+        // ===========   Areacode   ============= //
+        create_element = document.createElement("h3");
+        create_element.setAttribute("id", "Areacode") //給元素id
+        create_element.innerHTML = "Areacode";
+        document.getElementById(precent_div).appendChild(create_element); //添加至shop_的div元素裡面
+
+        //建立p元素，內容為商店Areacode
+        create_element = document.createElement("p");
+        create_element.setAttribute("id", "Areacode_" + count) //給元素id
+        create_element.innerText = food_array[i].Areacode;
+        document.getElementById(precent_div).appendChild(create_element);
+
+        // ===========   商店地址   ============= //
+        create_element = document.createElement("h3");
+        create_element.setAttribute("id", "shop_addr") //給元素id
+        create_element.innerHTML = "商店地址";
+        document.getElementById(precent_div).appendChild(create_element); //添加至shop_的div元素裡面
+
+        //建立p元素，內容為商店地址
+        create_element = document.createElement("p");
+        create_element.setAttribute("id", "addr_" + count) //給元素id
+        create_element.innerText = food_array[i].地址;
+        document.getElementById(precent_div).appendChild(create_element);
+
+        // ===========   商店介紹   ============= //
+        create_element = document.createElement("h3");
+        create_element.setAttribute("id", "shop_intro") //給元素id
+        create_element.innerHTML = "商店介紹";
+        document.getElementById(precent_div).appendChild(create_element); //添加至shop_的div元素裡面
+
+        //建立p元素，內容為商店名稱
+        create_element = document.createElement("p");
+        create_element.setAttribute("id", "intro_" + count) //給元素id
+        create_element.innerText = food_array[i].介紹;
+        document.getElementById(precent_div).appendChild(create_element);
+
+        count++;
+    }
+  }
+
+</script>
+
+<div id="data">
+  <h1>店家資料</h1>
+</div>
+</body>
+</html>
